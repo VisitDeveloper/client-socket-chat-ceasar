@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import { caesarDecrypt } from '../lib/caesarCode';
 import Cryptanalyst from './cryptanalysis';
+import {REACT_APP_BASE_URL , REACT_APP_KEY_ENCRYPTION} from './../constant/baseurl'
 
-const socket = io('http://localhost:5000'); // Connect to the server
+const socket = io(REACT_APP_BASE_URL); // Connect to the server
 
 const Chat = () => {
   const [message, setMessage] = useState('');
-  const [shift, setShift] = useState(3); // Set a default shift for Caesar cipher
+  const [shift] = useState(Number(REACT_APP_KEY_ENCRYPTION)); // Set a default shift for Caesar cipher
   const [messages, setMessages] = useState([]);
   const [currentDecryption , setCurrentDecryption] = useState('')
   
@@ -56,12 +57,12 @@ const Chat = () => {
         onChange={(e) => setMessage(e.target.value)}
         placeholder="Type your message..."
       />
-      <input
+      {/* <input
         type="number"
         value={shift}
         onChange={(e) => setShift(parseInt(e.target.value))}
         placeholder="Enter shift..."
-      />
+      /> */}
       <button onClick={sendMessage}>Send</button>
       <h2>Messages:</h2>
       <ul>
